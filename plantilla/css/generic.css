@@ -1,0 +1,298 @@
+
+html{
+	height: 100%;
+	background-color: #f8f6f2;
+}
+
+body{
+	display: flex;
+	flex-flow: column;
+	width: 100%;
+	height: 100%;
+	min-height: 100%;
+	margin: 0;
+}
+
+.button{
+	background-color: #eb774a;
+	border-radius: 5px;
+	border-color:black;
+	padding: 5px 12px;
+}
+
+.logotype__container{
+
+}
+
+
+.nav-bar__container{
+
+}
+.nav-bar__container, .logotype__container{
+	display:flex;
+	width:50%;
+}
+
+.root{
+	background-color: #f8f6f2;
+	display: contents;
+	position: relative;
+}
+.wrapper{
+	position: relative;
+	display: flex;
+	height: 100%;
+}
+
+.layout__article{
+	position: inline-flex;
+	width: 200px;
+	height: 300px;
+	border-color:white;
+	border-style: outset;
+	margin: 10px 20px;
+	padding: 0px;
+	border-radius: 5px;
+	border-width: 2px;
+	box-sizing: border-box;
+}
+.article__box{
+	display:block;
+	text-decoration: none;
+}
+.media__cell{
+	display: content;
+	height: 67%;
+}
+.description__container{
+	position:relative;
+}
+.article__description{
+	display:block;
+	height:33%;
+	background-color:green;
+}
+.article__title{
+	margin:0;
+	height:70%;
+	text-align: center;
+	font-size: 22px;
+	background-color:white;
+	justify-content: center;
+}
+.article__author{
+	margin:0;
+	height:30%;
+	justify-content:left;
+	font-size: 14px;
+	background-color:white;
+	text-indent:10px;
+}
+.article__title,.article__author{
+	color:black;
+	display:flex;
+	align-items:center;
+	font-family: Helvetica;
+	
+}
+.media__image{
+	display: content;
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.header{
+	height: 10%;
+	min-height: 60px;
+	max-height: 160px;
+	background-color: #1287ab;
+}
+.main{ 
+	background-color: #f8f6f2;
+	flex-direction: column;
+	flex: 1;
+	height: auto;
+}
+.fas{
+	color: white;
+	margin-right: 5px;
+}
+
+.recipes__list{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	width: 80%;
+	justify-content: center;
+}
+
+
+.main__video{
+	display: block;
+	margin: 20px 5%;
+	width: 400px;
+	height: 270px;
+	background-color: #e6e7ea;
+	border-width: 1px;
+	border-color: #212428;
+	border-style: solid;
+	color: #ffffff;
+}
+
+.video__content{
+	display: content;
+	width: 400px;
+	height: 225px;
+
+}
+
+.video__display{
+	display: content;
+	width: inherit;
+}
+.video__profile{
+	align-content: center;
+}
+.video__like{
+	align-content: center;
+}
+.video__actionbar{
+	display:flex;
+	margin: 10px 20px;
+	height: 25px;
+	align-items: center;
+	justify-content: space-between;
+}
+.footer{
+	height: 10%;
+	min-height: 60px;
+	max-height: 100px;
+	background-color: #1287ab;
+}
+
+.img__logo{
+	width: fit-content;
+	height: auto;
+	max-height: inherit;
+	color: white;
+}
+
+.nav__main{
+	min-height: inherit;
+	position: relative;
+	display: flex;
+	margin: 0 auto;
+	width: 80%;
+	/*justify-content: space-around;*/
+
+}
+
+.nav__logotype{
+	min-height: inherit;
+	max-height: inherit;
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+
+}
+.logotype__image{
+	width:auto;
+	height: 100%;
+}
+.logotype__title{
+	text-decoration: none;
+	font-size: 40px;
+	font-family: Helvetica;
+	font-variant:small-caps;
+	color: black;
+}
+
+.nav__home{
+	min-height: inherit;
+	max-height: inherit;
+	display: contents;
+}
+
+
+.nav__register,.nav__login,.nav__search{
+	color: white;
+	display: inline-flex;
+	margin: auto 5%;
+	font-size: large;
+	font-family:Helvetica;
+	font-weight: bold;
+	text-decoration: none;
+	align-items: flex-end;
+}
+
+
+.search__form{
+	padding: 0px;
+	margin: 0px;
+}
+
+.nav__layout{
+	min-height: inherit;
+	width: 25%;
+	display: inline-flex;
+	align-items: center;
+
+}
+.main__register, .main__login{
+	width: 40%;
+}
+
+.register__row, .login__row{
+	margin: 25px 0;
+}
+
+.register__label, .login__label{
+	font-size: 24px;
+}
+
+.register__field, .login__field{
+	font-size: 20px;
+	float: right;
+}
+
+.register__submit, .login__submit{
+	font-size: 20px;
+	margin:  25px auto;
+	display: block;
+}
+.main__title{
+	width: 100%;
+	display: block;
+	align-content: center;
+	margin: 15px auto 15px auto;
+	height: 10%;
+	max-height: 70px;
+	position: relative;
+	text-align: center;
+	font-size: 40px;
+	
+	font-variant: small-caps;
+	color: black ;
+	font-family: Helvetica;
+}
+
+.title__text{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+@media screen and (min-width: 600px){
+
+}
+
+@media screen and (min-width: 900px){
+	
+}
+
+@media screen and (min-width: 1200px){
+	
+}
