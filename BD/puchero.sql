@@ -41,7 +41,7 @@ CREATE TABLE cantidades  (
   cantidad varchar(255)
   
   primary key (nombre_ingred,id_receta),  
-  foreign key (nombre_ingred) references ingrediente(nombre), 
+  foreign key (nombre_ingred) references ingredientes(nombre), 
   foreign key (id_receta) references recetas(id) 
 ) ENGINE=INNODB;
 
