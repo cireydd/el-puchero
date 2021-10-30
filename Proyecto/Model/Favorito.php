@@ -4,35 +4,32 @@
 require_once(__DIR__."/../core/ValidationException.php");
 
 /**
-* Class Post
-*
-* Represents a Post in the blog. A Post was written by an
-* specific User (author) and contains a list of Comments
-*
-* @author lipido <lipido@gmail.com>
+* Class Favorito
+* 
+* Representa un favorito de un usuario a una receta concreta
+* 
 */
 class Favorito {
 
 	/**
-	* The id of this post
-	* @var string
+	* Nombre del usuario
 	*/
 	private $usuario;
 
 	/**
-	* The title of this post
-	* @var string
+	* Id de la receta
 	*/
 	private $id_receta;
 
 	/**
-	* The constructor
-	*
-	* @param string $id The id of the post
-	* @param string $title The id of the post
-	* @param string $content The content of the post
-	* @param User $author The author of the post
-	* @param mixed $comments The list of comments
+	* Array de errores
+	*/
+	private $errores = array(); 
+
+
+
+	/**
+	* CONSTRUCTOR
 	*/
 	public function __construct($usuario=NULL, $id_receta=NULL) {
 		$this->usuario = $usuario;
@@ -40,64 +37,58 @@ class Favorito {
 	}
 
 	/**
-	* Gets the id of this post
-	*
-	* @return string The id of this post
+	* GETTERS
 	*/
 	public function getUsuario() {
 		return $this->usuario;
 	}
 
-	/**
-	* Gets the title of this post
-	*
-	* @return string The title of this post
-	*/
 	public function getIdReceta() {
 		return $this->id_receta;
 	}
 
+
 	/**
-	* Sets the title of this post
-	*
-	* @param string $title the title of this post
-	* @return void
+	* SETTERS
 	*/
 	public function setUsuario($usuario) {
 		$this->usuario = $usuario;
 	}
 
-	/**
-	* Gets the content of this post
-	*
-	* @return string The content of this post
-	*/
 	public function setIdReceta($id_receta) {
 		$this->id_receta = $id_receta;
 	}
 
 
 
-	/**
-	* Checks if the current instance is valid
-	* for being updated in the database.
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
-	public function checkIsValidForCreate() {
-		$errors = array();
-		if (!isset($this->usuario)) {
-			$errors["usuario"] = "usuario is mandatory";
-		}
-		if (!isset($this->id_receta)) {
-			$errors["id_receta"] = "id_receta is mandatory";
-		}
-		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "favorito is not valid");
+	public function validarOperacion() {
+
+		validarUsuario($this->fecha_creacion);
+		validarIdReceta($this->id_receta);
+		
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "El favorito no es valido");
 		}
 	}
+
+
+	public function validarUsuario($usuario){
+		if(empty($usuario)){
+			$errores["usuario"]=i18n("ERR_NULL");
+		}
+		if(!is_string($usuario)){
+			$errores["usuario"]=i18n("ERR_FORMATO_USUARIO");
+		}		
+	}
+
+	public function validarIdReceta($id_receta){
+		if(empty($id_receta)){
+			$errores["id_receta"]=i18n("ERR_NULL");
+		}
+		if(!is_integer($id_receta)){
+			$errores["id_receta"]=i18n("ERR_FORMATO_ID_RECETA");
+		}
+	}
+
 
 }

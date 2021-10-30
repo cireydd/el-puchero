@@ -1,5 +1,5 @@
 <?php
-// file: model/Comment.php
+// a receta
 
 require_once(__DIR__."/../core/ValidationException.php");
 
@@ -14,39 +14,62 @@ class Ingrediente {
 
 	/**
 	* Nombre del ingrediente
-	* @var string
 	*/
-	private $nombre;
+	private $nom_ingre;
 
 	/**
-	* The constructor
-	*
-	* @param string $nombre Nombre del ingrediente
+	* Array de errores
 	*/
-	public function __construct($nombre=NULL) {
-		$this->nombre = $nombre;
+	private $errores = array(); 
+
+
+
+
+	/**
+	* CONSTRUCTOR
+	*/
+	public function __construct($nom_ingre=NULL) {
+		$this->nom_ingre = $nom_ingre;
 	}
 
 	/**
-	* Gets the id of this comment
-	*
-	* @return string The id of this comment
+	* GETTERS
 	*/
 	public function getNombre(){
-		return $this->nombre;
-	}
-	
-	public function setNombre($nombre){
-		$this->nombre=$nombre;
+		return $this->nom_ingre;
 	}
 
+	/**
+	* SETTERS
+	*/
+	public function setNombre($nom_ingre){
+		$this->nom_ingre=$nom_ingre;
+	}
 
-	public function checkIsValidForCreate() {
-		$errors = array();
+	/**
+	* 
+	* COMPROBADORES DE INSTANCIA
+	* 
+	*/
+	public function validoCrear() {
 
-		if (strlen($this->nombre) < 3 ) {
-			$errors["nombre"] = "El nombre debe tener al menos 3 caracteres";
+		validarNombre($this->nom_ingre);
+
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "Ingrediente no valido");
 		}
-
 	}
+
+
+	public function validaNombre($nom_ingre){
+		if(empty($nom_ingre)){
+			$nom_ingre["nombre"]=i18n("ERR_NULL");
+		}
+		if(!is_string($usuario)){
+			$nom_ingre["nombre"]=i18n("ERR_FORMATO_INGREDIENTE");
+		}		
+	}
+
+
+
 }

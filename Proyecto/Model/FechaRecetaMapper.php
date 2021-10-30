@@ -3,20 +3,18 @@
 
 require_once(__DIR__."/../core/PDOConnection.php");
 
-require_once(__DIR__."/../model/Comment.php");
+require_once(__DIR__."/../model/FechaReceta.php");
 
 /**
-* Class CommentMapper
+* Class FechaRecetaMapper
 *
-* Database interface for Comment entities
+* Interfaz de BD para entidades FechaReceta
 *
-* @author lipido <lipido@gmail.com>
 */
 class FechaRecetaMapper {
 
 	/**
-	* Reference to the PDO connection
-	* @var PDO
+	* Referencia a la conexion PDO
 	*/
 	private $db;
 
@@ -25,15 +23,38 @@ class FechaRecetaMapper {
 	}
 
 	/**
-	* Saves a comment
-	*
-	* @param Comment $comment The comment to save
-	* @throws PDOException if a database error occurs
-	* @return int The new comment id
+	* Guarda una FechaReceta
 	*/
-	public function save(Comment $comment) {
+	public function save(FechaReceta $fechaReceta) {
+
+		$check = $this->db->prepare("SELECT * FROM FECHARECETA WHERE AUTOR=? AND ID_RECETA=?");
+		$check->execute(array($fechaReceta->getAutor(), $fechaReceta->getIdReceta()));
+		
+
 		$stmt = $this->db->prepare("INSERT INTO comments(content, author, post) values (?,?,?)");
-		$stmt->execute(array($comment->getContent(), $comment->getAuthor()->getUsername(), $comment->getPost()->getId()));
+		$stmt->execute(array($fechaReceta->getContent(), $fechaReceta->getAuthor()->getUsername(), $fechaReceta->getPost()->getId()));
 		return $this->db->lastInsertId();
+	}
+
+
+	/**
+	* Guarda una FechaReceta
+	*/
+	public function delete(FechaReceta $fechaReceta) {
+		$stmt = $this->db->prepare("INSERT INTO comments(content, author, post) values (?,?,?)");
+		$stmt->execute(array($fechaReceta->getContent(), $fechaReceta->getAuthor()->getUsername(), $fechaReceta->getPost()->getId()));
+		return $this->db->lastInsertId();
+	}
+
+
+
+	public function validarSave(FechaReceta $fechaReceta){
+		$check = $this->db->prepare("SELECT * FROM FECHARECETA WHERE AUTOR=? AND ID_RECETA=?");
+		$check->execute(array($fechaReceta->getAutor(), $fechaReceta->getIdReceta()));
+	}
+
+
+	public function validarDelete(FechaReceta $fechaReceta){
+
 	}
 }

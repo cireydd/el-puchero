@@ -27,6 +27,7 @@ class FavoritoMapper {
 
 	/**
 	* Retrieves all posts
+	
 	*
 	* Note: Comments are not added to the Post instances
 	*
@@ -55,28 +56,17 @@ class FavoritoMapper {
 
 		return $posts_db['favs'];
 	}
-
-
-
+	
 		/**
-		* Saves a Post into the database
-		*
-		* @param Post $post The post to be saved
-		* @throws PDOException if a database error occurs
-		* @return int The mew post id
+		* Like
 		*/
 		public function save(Favorito $favorito) {
 			$stmt = $this->db->prepare("INSERT INTO favoritos(usuario, id_receta) values (?,?)");
 			$stmt->execute(array($favorito->getUsuario(), $favorito->getIdReceta()));
 		}
 
-
 		/**
-		* Deletes a Post into the database
-		*
-		* @param Post $post The post to be deleted
-		* @throws PDOException if a database error occurs
-		* @return void
+		* Unlike 
 		*/
 		public function delete(Favorito $favorito) {
 			$stmt = $this->db->prepare("DELETE from favoritos WHERE usuario=?,id_receta=?");

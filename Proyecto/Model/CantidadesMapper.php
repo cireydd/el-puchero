@@ -16,8 +16,7 @@ require_once(__DIR__."/../model/Comment.php");
 class PostMapper {
 
 	/**
-	* Reference to the PDO connection
-	* @var PDO
+	* Referencia a la conexion PDO
 	*/
 	private $db;
 
@@ -26,12 +25,7 @@ class PostMapper {
 	}
 
 	/**
-	* Retrieves all posts
-	*
-	* Note: Comments are not added to the Post instances
-	*
-	* @throws PDOException if a database error occurs
-	* @return mixed Array of Post instances (without comments)
+	* Referencia a la conexion PDO
 	*/
 	public function findAll() {
 		$stmt = $this->db->query("SELECT * FROM posts, users WHERE users.username = posts.author");
@@ -48,13 +42,7 @@ class PostMapper {
 	}
 
 	/**
-	* Loads a Post from the database given its id
-	*
-	* Note: Comments are not added to the Post
-	*
-	* @throws PDOException if a database error occurs
-	* @return Post The Post instances (without comments). NULL
-	* if the Post is not found
+	* Referencia a la conexion PDO
 	*/
 	public function findById($postid){
 		$stmt = $this->db->prepare("SELECT * FROM posts WHERE id=?");
@@ -73,13 +61,7 @@ class PostMapper {
 	}
 
 	/**
-	* Loads a Post from the database given its id
-	*
-	* It includes all the comments
-	*
-	* @throws PDOException if a database error occurs
-	* @return Post The Post instances (without comments). NULL
-	* if the Post is not found
+	* Referencia a la conexion PDO
 	*/
 	public function findByIdWithComments($postid){
 		$stmt = $this->db->prepare("SELECT
@@ -121,43 +103,31 @@ class PostMapper {
 			}else {
 				return NULL;
 			}
-		}
-
-		/**
-		* Saves a Post into the database
-		*
-		* @param Post $post The post to be saved
-		* @throws PDOException if a database error occurs
-		* @return int The mew post id
-		*/
-		public function save(Post $post) {
-			$stmt = $this->db->prepare("INSERT INTO posts(title, content, author) values (?,?,?)");
-			$stmt->execute(array($post->getTitle(), $post->getContent(), $post->getAuthor()->getUsername()));
-			return $this->db->lastInsertId();
-		}
-
-		/**
-		* Updates a Post in the database
-		*
-		* @param Post $post The post to be updated
-		* @throws PDOException if a database error occurs
-		* @return void
-		*/
-		public function update(Post $post) {
-			$stmt = $this->db->prepare("UPDATE posts set title=?, content=? where id=?");
-			$stmt->execute(array($post->getTitle(), $post->getContent(), $post->getId()));
-		}
-
-		/**
-		* Deletes a Post into the database
-		*
-		* @param Post $post The post to be deleted
-		* @throws PDOException if a database error occurs
-		* @return void
-		*/
-		public function delete(Post $post) {
-			$stmt = $this->db->prepare("DELETE from posts WHERE id=?");
-			$stmt->execute(array($post->getId()));
-		}
-
 	}
+
+	/**
+	* Referencia a la conexion PDO
+	*/
+	public function save(Post $post) {
+		$stmt = $this->db->prepare("INSERT INTO posts(title, content, author) values (?,?,?)");
+		$stmt->execute(array($post->getTitle(), $post->getContent(), $post->getAuthor()->getUsername()));
+		return $this->db->lastInsertId();
+	}
+
+	/**
+	* Referencia a la conexion PDO
+	*/
+	public function update(Post $post) {
+		$stmt = $this->db->prepare("UPDATE posts set title=?, content=? where id=?");
+		$stmt->execute(array($post->getTitle(), $post->getContent(), $post->getId()));
+	}
+
+	/**
+	* Referencia a la conexion PDO
+	*/
+	public function delete(Post $post) {
+		$stmt = $this->db->prepare("DELETE from posts WHERE id=?");
+		$stmt->execute(array($post->getId()));
+	}
+
+}

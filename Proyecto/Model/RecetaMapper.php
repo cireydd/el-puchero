@@ -13,8 +13,7 @@ require_once(__DIR__."/../core/PDOConnection.php");
 class RecetaMapper {
 
 	/**
-	* Reference to the PDO connection
-	* @var PDO
+	* Checks if a given pair of username/password exists in the database
 	*/
 	private $db;
 
@@ -23,11 +22,7 @@ class RecetaMapper {
 	}
 
 	/**
-	* Saves a User into the database
-	*
-	* @param User $user The user to be saved
-	* @throws PDOException if a database error occurs
-	* @return void
+	* Checks if a given pair of username/password exists in the database
 	*/
 	public function save($user) {
 		$stmt = $this->db->prepare("INSERT INTO users values (?,?)");
@@ -35,10 +30,7 @@ class RecetaMapper {
 	}
 
 	/**
-	* Checks if a given username is already in the database
-	*
-	* @param string $username the username to check
-	* @return boolean true if the username exists, false otherwise
+	* Checks if a given pair of username/password exists in the database
 	*/
 	public function usernameExists($username) {
 		$stmt = $this->db->prepare("SELECT count(username) FROM users where username=?");
@@ -51,10 +43,6 @@ class RecetaMapper {
 
 	/**
 	* Checks if a given pair of username/password exists in the database
-	*
-	* @param string $username the username
-	* @param string $passwd the password
-	* @return boolean true the username/passwrod exists, false otherwise.
 	*/
 	public function isValidUser($username, $passwd) {
 		$stmt = $this->db->prepare("SELECT count(username) FROM users where username=? and passwd=?");

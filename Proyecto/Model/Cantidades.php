@@ -1,5 +1,5 @@
 <?php
-// file: model/Post.php
+// A RECETA
 
 require_once(__DIR__."/../core/ValidationException.php");
 
@@ -11,192 +11,122 @@ require_once(__DIR__."/../core/ValidationException.php");
 *
 * @author lipido <lipido@gmail.com>
 */
-class Post {
+class Cantidades {
 
 	/**
-	* The id of this post
-	* @var string
+	* Fecha de creación de la receta
 	*/
-	private $id;
+	private $nom_ingre;
 
 	/**
-	* The title of this post
-	* @var string
+	* Fecha de creación de la receta
 	*/
-	private $title;
+	private $cantidad;
 
 	/**
-	* The content of this post
-	* @var string
+	* Array de errores
 	*/
-	private $content;
+	private $errores = array();
+
+
 
 	/**
-	* The author of this post
-	* @var User
+	* CONSTRUCTOR
 	*/
-	private $author;
-
-	/**
-	* The list of comments of this post
-	* @var mixed
-	*/
-	private $comments;
-
-	/**
-	* The constructor
-	*
-	* @param string $id The id of the post
-	* @param string $title The id of the post
-	* @param string $content The content of the post
-	* @param User $author The author of the post
-	* @param mixed $comments The list of comments
-	*/
-	public function __construct($id=NULL, $title=NULL, $content=NULL, User $author=NULL, array $comments=NULL) {
-		$this->id = $id;
-		$this->title = $title;
-		$this->content = $content;
-		$this->author = $author;
-		$this->comments = $comments;
+	public function __construct($nom_ingre=NULL, $cantidad=NULL) {
+		$this->nom_ingre = $nom_ingre;
+		$this->id_receta = $id_receta;
+		$this->cantidad = $cantidad;
 
 	}
 
+
 	/**
-	* Gets the id of this post
-	*
-	* @return string The id of this post
+	* GETTERS
 	*/
-	public function getId() {
-		return $this->id;
+	public function getNomIngre() {
+		return $this->nom_ingre;
 	}
 
-	/**
-	* Gets the title of this post
-	*
-	* @return string The title of this post
-	*/
-	public function getTitle() {
-		return $this->title;
+	public function getCantidad() {
+		return $this->cantidad;
 	}
 
+
 	/**
-	* Sets the title of this post
-	*
-	* @param string $title the title of this post
-	* @return void
+	* SETTERS
 	*/
-	public function setTitle($title) {
-		$this->title = $title;
+	public function setNomIngre($nom_ingre) {
+		$this->nom_ingre = $nom_ingre;
+	}
+	public function setIdReceta($id_receta) {
+		$this->id_receta = $id_receta;
+	}
+	public function setCantidad($cantidad) {
+		$this->cantidad = $cantidad;
 	}
 
-	/**
-	* Gets the content of this post
-	*
-	* @return string The content of this post
-	*/
-	public function getContent() {
-		return $this->content;
-	}
 
 	/**
-	* Sets the content of this post
-	*
-	* @param string $content the content of this post
-	* @return void
+	* 
+	* COMPROBADORES DE INSTANCIA
+	* 
 	*/
-	public function setContent($content) {
-		$this->content = $content;
-	}
+	public function validoCrear() {
 
-	/**
-	* Gets the author of this post
-	*
-	* @return User The author of this post
-	*/
-	public function getAuthor() {
-		return $this->author;
-	}
-
-	/**
-	* Sets the author of this post
-	*
-	* @param User $author the author of this post
-	* @return void
-	*/
-	public function setAuthor(User $author) {
-		$this->author = $author;
-	}
-
-	/**
-	* Gets the list of comments of this post
-	*
-	* @return mixed The list of comments of this post
-	*/
-	public function getComments() {
-		return $this->comments;
-	}
-
-	/**
-	* Sets the comments of the post
-	*
-	* @param mixed $comments the comments list of this post
-	* @return void
-	*/
-	public function setComments(array $comments) {
-		$this->comments = $comments;
-	}
-
-	/**
-	* Checks if the current instance is valid
-	* for being updated in the database.
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
-	public function checkIsValidForCreate() {
-		$errors = array();
-		if (strlen(trim($this->title)) == 0 ) {
-			$errors["title"] = "title is mandatory";
-		}
-		if (strlen(trim($this->content)) == 0 ) {
-			$errors["content"] = "content is mandatory";
-		}
-		if ($this->author == NULL ) {
-			$errors["author"] = "author is mandatory";
-		}
-
-		if (sizeof($errors) > 0){
-			throw new ValidationException($errors, "post is not valid");
+		validarNombreIngrediente($this->nom_ingre);
+		validarIdReceta($this->id_receta);
+		validarCantidad($this->cantidad);
+		
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "Cantidad de ingrediente no valida");
 		}
 	}
 
-	/**
-	* Checks if the current instance is valid
-	* for being updated in the database.
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
-	public function checkIsValidForUpdate() {
-		$errors = array();
+	public function validoEditar() {
 
-		if (!isset($this->id)) {
-			$errors["id"] = "id is mandatory";
+		validarNombreIngrediente($this->nom_ingre);
+		validarIdReceta($this->id_receta);
+		validarCantidad($this->cantidad);
+		
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "Cantidad de ingrediente no valida");
 		}
+	}
 
-		try{
-			$this->checkIsValidForCreate();
-		}catch(ValidationException $ex) {
-			foreach ($ex->getErrors() as $key=>$error) {
-				$errors[$key] = $error;
-			}
+	public function validoEliminar() {
+
+		validarIdReceta($this->id_receta);
+		
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "Cantidad de ingrediente no valida");
 		}
-		if (sizeof($errors) > 0) {
-			throw new ValidationException($errors, "post is not valid");
+	}
+
+	public function validarNombreIngrediente($nom_ingre){
+		if(empty($nom_ingre)){
+			$errores["nom_ingre"]=i18n("ERR_NULL");
 		}
+		if(!is_string($nom_ingre)){
+			$errores["nom_ingre"]=i18n("ERR_FORMATO_INGREDIENTE");
+		}
+	}
+
+	public function validarIdReceta($id_receta){
+		if(empty($id_receta)){
+			$errores["id_receta"]=i18n("ERR_NULL");
+		}
+		if(!is_integer($id_receta)){
+			$errores["id_receta"]=i18n("ERR_FORMATO_ID_RECETA");
+		}
+	}
+
+	public function validarCantidad($cantidad){
+		if(empty($cantidad)){
+			$errores["cantidad"]=i18n("ERR_NULL");
+		}
+		if(!is_string($cantidad)){
+			$errores["cantidad"]=i18n("ERR_FORMATO_CANTIDAD");
+		}		
 	}
 }

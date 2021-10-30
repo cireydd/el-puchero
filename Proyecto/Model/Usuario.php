@@ -13,85 +13,110 @@ require_once(__DIR__."/../core/ValidationException.php");
 class Usuario {
 
 	/**
-	* The user name of the user
-	* @var string
+	* Nombre del usuario
 	*/
 	private $username;
 
 	/**
-	* The password of the user
-	* @var string
+	* Contraseña del usuario
 	*/
-	private $passwd;
+	private $password;
 
 	/**
-	* The constructor
-	*
-	* @param string $username The name of the user
-	* @param string $passwd The password of the user
+	* Email del usuario
 	*/
-	public function __construct($username=NULL, $passwd=NULL) {
+	private $email;
+
+	/**
+	* Array de errores
+	*/
+	private $errores = array(); 
+
+
+
+	/**
+	* CONSTRUCTOR
+	*/
+	public function __construct($username=NULL, $password=NULL,$email=NULL) {
 		$this->username = $username;
-		$this->passwd = $passwd;
+		$this->password = $password;
+		$this->email = $email;
 	}
 
+
+
 	/**
-	* Gets the username of this user
-	*
-	* @return string The username of this user
+	* GETTERS
 	*/
 	public function getUsername() {
 		return $this->username;
 	}
 
+	public function getPassword() {
+		return $this->password;
+	}
+
+	public function getEmail() {
+		return $this->email;
+	}
+
+
+
+
 	/**
-	* Sets the username of this user
-	*
-	* @param string $username The username of this user
-	* @return void
+	* SETTERS
 	*/
 	public function setUsername($username) {
 		$this->username = $username;
 	}
 
-	/**
-	* Gets the password of this user
-	*
-	* @return string The password of this user
-	*/
-	public function getPasswd() {
-		return $this->passwd;
-	}
-	/**
-	* Sets the password of this user
-	*
-	* @param string $passwd The password of this user
-	* @return void
-	*/
-	public function setPassword($passwd) {
-		$this->passwd = $passwd;
+	public function setPassword($password) {
+		$this->password = $password;
 	}
 
-	/**
-	* Checks if the current user instance is valid
-	* for being registered in the database
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
-	public function checkIsValidForRegister() {
-		$errors = array();
-		if (strlen($this->username) < 5) {
-			$errors["username"] = "Username must be at least 5 characters length";
+	public function setEmail($email) {
+		$this->email = $email;
+	}
 
+
+	/**
+	* COMPROBADORES DE INSTANCIA
+	*/
+	public function validoCrear() {
+
+		validarUsuario($this->usuario);
+		validarPassword($this->password);
+		validarEmail($this->email);
+		
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "La fecha de la receta no es valida");
 		}
-		if (strlen($this->passwd) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
+	}
+
+	public function validarUsuario($usuario){
+		if(empty($usuario)){
+			$errores["usuario"]=i18n("ERR_NULL");
 		}
-		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "user is not valid");
+		if(!is_string($usuario)){
+			$errores["usuario"]=i18n("ERR_FORMATO_USUARIO");
+		}		
+	}
+
+	public function validarPassword($password){
+		if(empty($password)){
+			$errores["password"]=i18n("ERR_NULL");
 		}
+		if(!is_string($password)){
+			$errores["password"]=i18n("ERR_FORMATO_PASSWORD");
+		}	
+	}
+
+	public function validarEmail($email){
+		if(empty($email)){
+			$errores["email"]=i18n("ERR_NULL");
+		}
+		if(!is_string($autor)){
+			$errores["email"]=i18n("ERR_FORMATO_EMAIL");
+		}		
 	}
 }

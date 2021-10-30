@@ -12,86 +12,208 @@ require_once(__DIR__."/../core/ValidationException.php");
 */
 class Receta {
 
-	/**
-	* The user name of the user
-	* @var string
-	*/
-	private $username;
 
 	/**
-	* The password of the user
-	* @var string
+	* Titulo de la receta
 	*/
-	private $passwd;
+	private $titulo;
 
 	/**
-	* The constructor
-	*
-	* @param string $username The name of the user
-	* @param string $passwd The password of the user
+	* Imagen de la receta
 	*/
-	public function __construct($username=NULL, $passwd=NULL) {
-		$this->username = $username;
-		$this->passwd = $passwd;
+	private $imagen;
+
+	/**
+	* Tiempo de preparación (en minutos) de la receta
+	*/
+	private $tiempo;
+
+	/**
+	* Pasos de la receta
+	*/
+	private $pasos;
+
+	/**
+	* Array de ingredientes y su cantidad
+	*/
+	private $ingredientes;
+
+	/**
+	* fecha de creación de la receta
+	*/
+	private $fecha_creacion;
+
+	/**
+	* Autor de la receta
+	*/
+	private $autor;
+
+	/**
+	* Array de errores
+	*/
+	private $errores = array();
+	/** 
+	* Operacion CRUD a realizar
+	*/
+	private $operacion;
+
+
+	/**
+	* CONSTRUCTOR
+	*/
+	public function __construct($titulo=NULL, $imagen=NULL, $tiempo=NULL) {
+		$this->titulo = $titulo;
+		$this->imagen = $imagen;
+		$this->tiempo = $tiempo;
+		$this->pasos = $pasos;
+		$this->ingredientes = $ingredientes;
+		$this->fecha_creacion = $fecha_creacion;
+		$this->autor = $autor;
+
 	}
 
 	/**
-	* Gets the username of this user
-	*
-	* @return string The username of this user
+	* GETTERS
 	*/
-	public function getUsername() {
-		return $this->username;
+	public function getTitulo() {
+		return $this->titulo;
+	}
+
+	public function getImagen() {
+		return $this->imagen;
+	}
+
+	public function getTiempo() {
+		return $this->tiempo;
 	}
 
 	/**
-	* Sets the username of this user
-	*
-	* @param string $username The username of this user
-	* @return void
+	* GETTERS
 	*/
-	public function setUsername($username) {
-		$this->username = $username;
+	public function setTitulo($titulo) {
+		$this->titulo = $titulo;
 	}
 
-	/**
-	* Gets the password of this user
-	*
-	* @return string The password of this user
-	*/
-	public function getPasswd() {
-		return $this->passwd;
-	}
-	/**
-	* Sets the password of this user
-	*
-	* @param string $passwd The password of this user
-	* @return void
-	*/
-	public function setPassword($passwd) {
-		$this->passwd = $passwd;
+	public function setImagen($imagen) {
+		$this->imagen = $imagen;
 	}
 
-	/**
-	* Checks if the current user instance is valid
-	* for being registered in the database
-	*
-	* @throws ValidationException if the instance is
-	* not valid
-	*
-	* @return void
-	*/
-	public function checkIsValidForRegister() {
-		$errors = array();
-		if (strlen($this->username) < 5) {
-			$errors["username"] = "Username must be at least 5 characters length";
+	public function setTiempo($tiempo) {
+		$this->tiempo = $tiempo;
+	}
 
+
+	/**
+	* 
+	* COMPROBADORES DE INSTANCIA
+	* 
+	*/
+	public function validarAtributos($operacion) {
+
+		$this->operacion = $operacion;
+		validarTitulo($this->titulo);
+		validarImagen($this->imagen);
+		validarTiempo($this->tiempo);
+		validarPasos($this->pasos);
+		validarFechaCreacion($this->fecha_creacion);
+		validarIngredientes($this->ingredientes);
+		validarAutor($this->autor);
+
+
+		if (sizeof($errores) > 0){
+			throw new ValidationException($errores, "La fecha de la receta no es valida");
 		}
-		if (strlen($this->passwd) < 5) {
-			$errors["passwd"] = "Password must be at least 5 characters length";
+	}
+
+
+	public function validarFechaCreacion($fecha_creacion){
+		if(empty($fecha_creacion)){
+			$errores["fecha_creacion"]=i18n("ERR_NULL");
+		}
+		if(!date_create_from_format('Y-m-d H:i:s',$fecha_creacion)){
+			$errores["fecha_creacion"]=i18n("ERR_FORMATO_FECHA");
+		}
+	}
+
+	public function validarImagen($id_receta){
+		$maxsize = 5242880;
+		$errors = array();
+		if(isset($_FILES['file']['tmp_name']) && isset($_FILES['file']['name'])){
+
+			//Parameters
+			$name = $_FILES['file']['name'];
+			$target_dir = "./Files/".$this->owner."/";
+			$target_file = $target_dir . $_FILES["file"]["name"];
+
+			// Select file type
+			$extension = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+	 
+			// Valid file extensions
+			$extensions_arr = array("jpeg","jpg","bmp","gif","png","eps","tif","tiff");
+	 
+			// Check extension
+			if(in_array($extension,$extensions_arr) ){
+	  
+			   // Check file size
+			  if(($_FILES['file']['size'] >= $maxsize) || ($_FILES["file"]["size"] == 0)) {
+				$errors['File_Size']= "File too large. File must be less than 5MB.";
+			  }
+			   else{
+
+				if(!is_dir("./Files/".$this->getOwner())) {
+					if(!mkdir($target_dir)){
+						$errors['Directory_Error'] = "Can't make directory";
+					}
+				}
+				  if(move_uploaded_file($_FILES['file']['tmp_name'],$target_file)){
+							
+				  }
+				  else{
+					$errors['Unknown'] = "Error uploading file"; 
+				  }
+			   }
+			}else{
+			   $errors['File_Extension'] = "Invalid file extension.";
+			}
+		}else{
+			$errors['File_Empty'] = "Please select a file.";
 		}
 		if (sizeof($errors)>0){
-			throw new ValidationException($errors, "user is not valid");
+			throw new ValidationException($errors, "video is not valid");
 		}
+	}
+
+	public function validarAutor($autor){
+		if(empty($autor)){
+			$errores["tiempo"]=i18n("ERR_NULL");
+		}
+		if(!is_string($autor)){
+			$errores["tiempo"]=i18n("ERR_FORMATO_TIEMPO");
+		}		
+	}
+
+	public function validarIngrediente($ingredientes){
+		foreach ($ingredientes as $ingrediente){
+			validarNombreIngrediente($ingrediente["Nombre"]);
+			validarCantidad($ingrediente["Cantidad"]);
+		}
+	}
+
+	public function validarNombreIngrediente($nom_ingre){
+		if(empty($nom_ingre)){
+			$errores["nom_ingre"]=i18n("ERR_NULL");
+		}
+		if(!is_string($nom_ingre)){
+			$errores["nom_ingre"]=i18n("ERR_FORMATO_INGREDIENTE");
+		}
+	}
+
+	public function validarCantidad($cantidad){
+		if(empty($cantidad)){
+			$errores["cantidad"]=i18n("ERR_NULL");
+		}
+		if(!is_string($cantidad)){
+			$errores["cantidad"]=i18n("ERR_FORMATO_CANTIDAD");
+		}		
 	}
 }
