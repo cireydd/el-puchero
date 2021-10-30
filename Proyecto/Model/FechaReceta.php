@@ -58,7 +58,6 @@ class FechaReceta {
 		return $this->autor;
 	}
 
-
 	/**
 	* SETTERS
 	*/
@@ -66,7 +65,6 @@ class FechaReceta {
 	public function setFechaCreacion($fecha_creacion){
 		$this->fecha_creacion = $fecha_creacion;
 	}
-
 	public function setAutor($autor) {
 		$this->autor = $autor;
 	}
