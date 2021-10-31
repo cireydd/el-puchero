@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="css/generic.css" type="text/css">
+	<link rel="stylesheet" href="css/login.css" type="text/css">
+	<meta http-equiv=”Content-Type” content=”text/html; charset=UTF-8″ />
+</head>
+
+<body>
+	<div class="root">
+		<div class="wrapper header ">
+			<div class="logotype__container">
+				<a class="nav__logotype" href="index.php">
+					<img class="logotype__image" src="logo.png">
+					<span class="logotype__title">El Puchero</span>
+				</a>
+			</div>
+		</div>
+		<div class="wrapper main nav__main">
+			<div class="testForm">
+				<div class="login">
+					<div class="login-screen">
+						<div class="app-title">
+							<h1>Añadir Receta</h1>
+						</div>
+						<form class="login-form" method="post" action>
+							<div class="control-group">
+								<input type="text" class="login-field" value="" placeholder="Nombre"
+									id="login-name">
+								<label class="login-field-icon fui-user"></label>
+							</div>
+
+							<div class="control-group">
+								<input type="text" class="login-field" value="" placeholder="Tiempo"
+									id="login-pass">
+								<label class="login-field-icon fui-lock" ></label>
+							</div>
+
+                            <div class="control-group">
+								<input type="file" accept="image/png, image/jpeg" class="login-field" value="" placeholder="Tiempo"
+									id="login-pass">
+								<label class="login-field-icon fui-lock" ></label>
+							</div>
+
+                            <select class="form-select" onchange="test()" aria-label="Default select example">
+                                <option selected>Open this select menu</option>
+                                <option value="1">Ingr1</option>
+                                <option value="2">Ingr2</option>
+                                <option value="3">Ingr3</option>
+                              </select>
+
+							<a class="btn btn-primary btn-large btn-block" href="#">Registrarse</a>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="wrapper footer">
+		<div class="author__text">
+		</div>
+	</div>
+	</div>
+</body>
+
+</html>
+
+<script>
+
+function test(){
+    console.log("");
+}
+
+    </script>
