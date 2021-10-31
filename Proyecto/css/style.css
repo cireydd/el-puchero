@@ -1,0 +1,373 @@
+/*Propiedad general del la página*/
+html{
+	height: 100%;
+	background-color: #f8f6f2;
+}
+
+/* Contenido HTML de la página*/
+body{
+	display: flex; /* Fuerza a que el footer se pegue al pie de la página*/
+	flex-flow: column; /* Fuerza a que el footer se pegue al pie de la página*/
+	width: 100%;
+	height: 100%; /* Fuerza a que el footer se pegue al pie de la página*/
+	margin: 0; /*Evitar margenes por defecto del div*/
+}
+
+
+/* CONTENEDORES */
+/*Contenedor de las secciones de la página*/
+.root{
+	background-color: #f8f6f2;
+	display: contents; /* Fuerza a que el footer se pegue al pie de la página*/
+}
+
+/* Contenedor de la cabecera de la página */
+.header{
+	height: 10%;
+	min-height: 60px;
+	max-height: 160px;
+	background-color: #1287ab;
+}
+
+
+/* Contenedor de contenido principal de la página */
+.main{ 
+	background-color: #f8f6f2;
+	flex-direction: column;
+	flex: 1;
+	height: auto;
+}
+
+/* Contenedor del pie de página */
+.footer{
+	height: 10%;
+	min-height: 60px;
+	max-height: 100px;
+	background-color: #1287ab;
+}
+
+/*Cambio de orientación flex en las diversas secciones*/
+.wrapper{
+	display: flex;
+}
+
+
+.nav__main{
+	min-height: inherit;
+	position: relative;
+	display: flex;
+	margin: 0 auto;
+	width: 80%;
+	/*justify-content: space-around;*/
+
+}
+/* CONTENEDORES FIN*/
+
+
+
+/* COMPONENTES HEADER */
+
+
+/*Distribución de las partes*/
+.nav-bar__container, .logotype__container{
+	display:inline-flex;
+	width:50%;
+}
+
+/*LOGOTIPO*/
+
+/* Enlace a la pagina principal, contiene: Logotipo +Nombre*/
+.nav__logotype{
+	min-height: inherit;
+	max-height: inherit;
+	display: contents;
+	align-items: center;
+	text-decoration: none;
+	width: min-content;
+}
+
+/* Imagen del enlace*/
+.logotype__image{
+	width:auto;
+	height: 100%;
+}
+
+/* Texto de logotipo*/
+.logotype__title{
+	text-decoration: none;
+	font-size: 40px;
+	font-family: Helvetica;
+	font-variant:small-caps;
+	color: black;
+	align-self: center;
+}
+
+/*LOGOTIPO FIN*/
+
+/* BOTONES + BARRA BUSQUEDA */
+
+.nav__register,.nav__login,.nav__search{
+	color: white;
+	display: inline-flex;
+	margin: auto 5%;
+	font-size: large;
+	font-family:Helvetica;
+	font-weight: bold;
+	text-decoration: none;
+	align-items: flex-end;
+}
+
+.search__form{
+	padding: 0px;
+	margin: 0px;
+}
+
+/* Diseño general de boton*/
+.button{
+	background-color: #eb774a;
+	border-radius: 5px;
+	border-color:black;
+	padding: 5px 12px;
+}
+
+/* BOTONES + BARRA BUSQUEDA FIN*/
+
+/* COMPONENTES HEADER FIN*/
+
+
+
+
+
+/* COMPONENTES BODY */
+
+
+
+
+
+/* Componentes del FOOOTER */
+
+
+
+
+/* Componentes Generales */
+
+
+/* Titulo de contenido principal */
+.main__title{
+	width: 100%;
+	display: block;
+	align-content: center;
+	margin: 15px auto 15px auto;
+	height: 10%;
+	max-height: 70px;
+	position: relative;
+	text-align: center;
+	font-size: 40px;
+	
+	font-variant: small-caps;
+	color: black ;
+	font-family: Helvetica;
+}
+
+/* Lista flex de recetas */
+.recipes__list{
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 auto;
+	width: 80%;
+	justify-content: center;
+}
+
+/* Distribución de la Receta*/
+.layout__article{
+	position: inline-flex;
+	width: 200px;
+	height: 300px;
+	border-color:white;
+	border-style: outset;
+	margin: 10px 20px;
+	padding: 0px;
+	border-radius: 5px;
+	border-width: 2px;
+	box-sizing: border-box;
+}
+
+/* Caja/Enlace a la receta. Mejorable*/
+.article__box{
+	display:block;
+	text-decoration: none;
+}
+
+/* Contenedor de la imagen*/
+.media__cell{
+	display: content;
+	height: 67%;
+}
+
+/* Imagen */
+.media__image{
+	display: content;
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+/* Contenedor de Descripcion + Autor */
+.article__description{
+	display:block;
+	height:33%;
+	background-color:green;
+}
+
+/* Conteneder de la descripcion + Autor. Necesita separacion*/
+.description__container{
+	position:relative;
+
+
+}
+
+/* Propiedades comunes al texto*/
+.article__title,.article__author{
+	color:black;
+	display:flex;
+	align-items:center;
+	font-family: Helvetica;
+	
+}
+
+/* Descripcion */
+.article__title{
+	margin:0;
+	height:70%;
+	text-align: center;
+	font-size: 22px;
+	background-color:white;
+	justify-content: center;
+}
+
+/* Autor */
+.article__author{
+	margin:0;
+	height:30%;
+	justify-content:left;
+	font-size: 14px;
+	background-color:white;
+	text-indent:10px;
+}
+
+* {
+    box-sizing: border-box;
+    }
+    
+    *:focus {
+      outline: none;
+    }
+    /* body {
+    font-family: Arial;
+    background-color: #3498DB;
+    padding: 50px;
+    } */
+    .login {
+    margin: 20px auto;
+    width: 300px;
+  
+    }
+    .login-screen {
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 5px
+    }
+    
+  
+  .testForm{
+    width: 100%;
+    margin: 7.2rem auto 0 auto;
+  }
+  
+    .app-title {
+    text-align: center;
+    color: #777;
+    }
+    
+    .login-form {
+    text-align: center;
+    }
+    .control-group {
+    margin-bottom: 10px;
+    }
+    
+    input {
+    text-align: center;
+    background-color: #ECF0F1;
+    border: 2px solid transparent;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: 200;
+    padding: 10px 0;
+    width: 250px;
+    transition: border .5s;
+    }
+    
+    input:focus {
+    border: 2px solid #3498DB;
+    box-shadow: none;
+    }
+    
+    .btn {
+      border: 2px solid transparent;
+      background: #3498DB;
+      color: #ffffff;
+      font-size: 16px;
+      line-height: 25px;
+      padding: 10px 0;
+      text-decoration: none;
+      text-shadow: none;
+      border-radius: 3px;
+      box-shadow: none;
+      transition: 0.25s;
+      display: block;
+      width: 250px;
+      margin: 0 auto;
+    }
+    
+    .btn:hover {
+      background-color: #2980B9;
+    }
+    
+    .login-link {
+      font-size: 12px;
+      color: #444;
+      display: block;
+      margin-top: 12px;
+    }
+
+
+
+
+
+/* Color de iconos usando font-awesome */
+.fas{
+	color: white;
+	margin-right: 5px;
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 600px){
+
+}
+
+@media screen and (min-width: 900px){
+	
+}
+
+@media screen and (min-width: 1200px){
+	
+}
+
